@@ -24,6 +24,8 @@ export class PostCreateComponent {
     };
     // this.postCreated.emit(post);
     this.postService.setPosts(post.title, post.content);
+    this.inputTitle = ' ';
+    this.inputContent = ' ';
   }
 
 }

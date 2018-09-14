@@ -2,11 +2,11 @@
 <!--<br><textarea rows=6 #valeurTextArea (keyup)="onAddPost(valeurTextArea)"></textarea>-->
 <mat-card>
 <mat-form-field>
-  <input #title="ngModel" required minlength=3 placeholder="Title" type="text" matInput [(ngModel)]="inputTitle">
+  <input #title="ngModel" required placeholder="Title" type="text" matInput [(ngModel)]="inputTitle">
   <mat-error *ngIf="title.invalid">Please enter a valid title</mat-error>
 </mat-form-field>
 <mat-form-field>
-  <textarea #content="ngModel" required minlength=3 matInput placeholder="Content" rows=3 [(ngModel)]="inputContent"></textarea>
+  <textarea #content="ngModel" required matInput placeholder="Content" rows=3 [(ngModel)]="inputContent"></textarea>
   <mat-error *ngIf="content.invalid">Please enter a valid content</mat-error>
 </mat-form-field>
 <button
