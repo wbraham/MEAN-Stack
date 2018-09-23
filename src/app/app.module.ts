@@ -8,7 +8,9 @@ import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule } from
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HeaderComponent } from './posts/header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
-import { PostService } from './posts/posts.service';
+//import { PostService } from './posts/posts.service';
+import { EmployeesService } from './shared/employees.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { PostService } from './posts/posts.service';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatCardModule,
@@ -27,7 +30,7 @@ import { PostService } from './posts/posts.service';
     MatToolbarModule,
     MatExpansionModule
   ],
-  providers: [PostService],
+  providers: [EmployeesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

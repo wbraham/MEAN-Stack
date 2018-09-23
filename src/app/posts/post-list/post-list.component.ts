@@ -1,36 +1,53 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EmployeesService } from '../../shared/employees.service';
+import { Response } from '@angular/http';
 import { Post } from '../post.model';
-import { PostService } from '../posts.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   styleUrls : ['./post-list.component.css'],
   selector : 'app-post-list',
   templateUrl : './post-list.component.html'
 })
-export class PostListComponent implements OnInit, OnDestroy {
-  /*posts = [
-    { title: 'First Post', content: 'This is the First Post\'s content'},
-    { title: 'Second Post', content: 'This is the Second Post\'s content'},
-    { title: 'Third Post', content: 'This is the Third Post\'s content'}
-  ];*/
-  // @Input() posts: Post[] = [];
-  posts: Post[] = [];
-  private postsSub: Subscription;
+export class PostListComponent implements OnInit {
 
-  constructor(public postService: PostService) {
+  lesEmployes : [{
+    nom : string,
+    email : string,
+    id : string
+  }]
+
+  constructor(public employeesService: EmployeesService) {
+    this.getEmployees();
   }
 
-  ngOnInit() {
-    this.posts = this.postService.getPosts();
-    this.postsSub = this.postService.getPostUpdateListener().subscribe((posts: Post[]) => {
-        this.posts = posts;
-    });
+  ngOnInit() {}
+
+  getEmployees(){
+   this.employeesService.getEmployees().subscribe(
+    (data : Response) => {
+      this.lesEmployes = JSON.parse(data.text());
+     for (var x=0;x<this.lesEmployes.length;x++){
+     console.log(this.lesEmployes[x].nom);
+    }
+   },
+    (error)=>{console.log(error)
+     console.log('not found!');
+      }
+    );
   }
 
-  ngOnDestroy() {
-    this.postsSub.unsubscribe();
+  deleteEmployee(){
+    var inputElement = <HTMLInputElement>document.querySelector('button[name="deletebtn"]');
+    var selectedid = inputElement.value;
+    this.employeesService.deleteEmployee(selectedid).subscribe(
+      (data : Response) => {
+       window.alert("supprimé avec succès!");
+       location.reload();
+      },
+      (error)=>{console.log(error)
+       console.log('not found!');
+      }
+      );
   }
+
 }
-
-

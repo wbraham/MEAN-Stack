@@ -1,0 +1,17 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mongodb": {
+    "port": 27017,
+    "database": "MEAN_Q_A",
+    "password": "",
+    "url": "",
+    "name": "mongodb",
+    "user": "",
+    "localStorage": "",
+    "file": "",
+    "connector": "mongodb"
+  }
+}

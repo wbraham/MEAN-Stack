@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Post } from '../post.model';
-import { PostService } from '../posts.service';
-import { Title } from '@angular/platform-browser';
+import { EmployeesService } from '../../shared/employees.service';
+
 @Component({
   styleUrls: ['./post-create.component.css'],
   templateUrl : './post-create.component.html',
@@ -10,22 +10,23 @@ import { Title } from '@angular/platform-browser';
 export class PostCreateComponent {
   inputTitle = '';
   inputContent = '';
-  // @Output() postCreated = new EventEmitter<Post>();
-  /*onAddPost(valeurTextArea : HTMLTextAreaElement) {
-    this.textt = valeurTextArea.value;
-  }*/
+  constructor(private employeesService : EmployeesService) {}
 
-  constructor(public postService: PostService) {}
-
-  onAddPost() {
+  addEmployee() {
     const post: Post = {
-      title : this.inputTitle,
-      content : this.inputContent
+      name : this.inputTitle,
+      email : this.inputContent
     };
-    // this.postCreated.emit(post);
-    this.postService.setPosts(post.title, post.content);
-    this.inputTitle = ' ';
-    this.inputContent = ' ';
+    this.employeesService.addEmployee(post.name,post.email).subscribe(
+      (res)=>{
+          console.log(res);
+          window.alert("Employé ajouté avec succès!");
+          location.reload();
+      } ,
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
 }
